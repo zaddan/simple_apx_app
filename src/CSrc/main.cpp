@@ -1,11 +1,4 @@
-/**
-* @file RecME.cpp
-* @author Muhammad Usman Karim Khan
-* Group: Prof. Joerg Henkel at Chair for Embedded Systems (CES), KIT
-* @brief This file contains the computational adaptation for both number
-* of threads and the frequency of the cores.
-*/
-
+//copy paste the following lines: start here
 #include <fstream>
 #include "assert.h"
 #include "Operators.h"
@@ -14,17 +7,16 @@
 #include "operandFile_parser.h"
 #include "globals.h"
 #include "foo.h"
-
 using namespace std;
 extern hw_ac **myOp;   
-//extern vector<int> inputVar;
+//end here
 
-//int notMain(){ //uncomment when you want to run the run_unit_tests
+
+//copy past the following lines: start here
 int main(int argc, char* argv[]){
     string resultFolderName; 
     string resultFileName; 
     string operatorFileName;
-    //string operandFileName;
     if (argc < 4) {
         cout<< "provide the name of the file that you want the result to be written to"<<endl;
         cout<< "Example: resultFolderName.txt resultFile.txt operatorFile.txt"<<endl; 
@@ -39,17 +31,8 @@ int main(int argc, char* argv[]){
     ofstream resultFile;
     resultFile.open(resultFileNameCompleteAddress.c_str(), ios_base::app);
     resultFile<<"*****************start******"<<endl; 
-    //keep the above part of the main file intact for various files 
-    //writing the result 
-     //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
-    //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
-//    const int inputSize = 0; 
-//    int inputVar[inputSize] = {}; 
-//    assert(argc == inputSize + 4);
-//    for (int i =0 ; i < 4; i++) {
-//        inputVar[i] = atoi(argv[4 + i]);
-//    }
-    
+    //end here
+
     int in1 = 10;
     int in2 = 20;
     int in3 = 30;

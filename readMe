@@ -21,4 +21,8 @@ cmake --build .
     ./simple . out ../operator_sample.txt
 
 note: the output of the program is directed to the stdout
+note: in the operator_sample.txt file: 
+    btm means bit trucation multiplier
+    bta mean bit truncation adder
+    btm 32 10 0 0  (10 is the number of aproximated bits. change only that argument)
 
