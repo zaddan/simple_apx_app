@@ -47,6 +47,7 @@ const char* const DELIMITER = " ";
 int operatorFileParser(string fileName, vector< vector<string> > &VTypeInfo)
 {
   
+  cout<<"here is the string: "<< fileName;
     // create a file-reading object
    ifstream fin;
   fin.open(fileName); // open a file
