@@ -30,6 +30,7 @@ vector<float> mul_long_int_energy_vals {8.8, 8.5007, 8.0576 , 7.6706 , 7.3762 , 
 vector<float> mul_int_int_energy_vals {4.6, 4.4194, 4.1470, 3.8712, 3.6900, 3.4301,3.1957 ,3.0342 ,2.8028 ,2.5685 ,2.4261,2.558612,2.0411,1.9182,1.7561,1.5972};
 
 void btm::update_energy(int n_apx_bits, string op1_type, string op2_type){
+    /* 
     if (op1_type ==  "long" && op2_type ==  "long") {
         energy_value += mul_long_long_energy_vals[n_apx_bits];
     }
@@ -42,11 +43,13 @@ void btm::update_energy(int n_apx_bits, string op1_type, string op2_type){
     else if (op1_type == "int" && op2_type== "int") {
         energy_value += mul_int_int_energy_vals[n_apx_bits];
     }
+    else 
     else {
         cout<<"the energy value for this bta types is not defined"<<endl;
         exit(0);
     }
-    //energy_valuee+= (32 - n_apx_bits) + 10;
+    */ 
+    energy_value+= (32 - n_apx_bits) + 10;
 }
 
 
@@ -303,6 +306,7 @@ float btm::calc(const float &number1, const float &number2) {
 }
 
 float btm::calc(const double &number1, const double &number2) {
+    update_energy(vbl, "double", "double");    
     cout<<"=============insde other half float"<<endl; 
     float numOut = number1; 
     float numOut2 = number2; 
