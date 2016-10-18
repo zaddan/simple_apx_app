@@ -53,6 +53,22 @@ size_t bta::get_ianum_bits(void) {
 	return Nia;
 }
 
+
+float bta::calc(const double &a, const float &b) {
+   update_energy(Nia, "float", "double"); 
+   double b_out = b;
+   calc(a, b_out);
+}
+
+
+float bta::calc(const float &a, const double &b) {
+   update_energy(Nia, "float", "double"); 
+   double a_out = a;
+   calc(b, a_out);
+}
+
+
+
 int bta::calc(const long &a, const int &b) {
     // inaccurate part
     update_energy(Nia, "long", "int"); 

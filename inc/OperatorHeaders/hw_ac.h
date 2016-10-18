@@ -32,7 +32,9 @@ class hw_ac {
 		//void tbl_gen(const size_t &msb, const size_t &lsb, int (*calc) (const int &, const int &), int (*calc_ref) (const int &, const int &));
 		virtual void tbl_gen()=0;
 
-		virtual int calc(const int &a, const int &b) = 0; // pure virtual
+		virtual float calc(const double &a, const float &b) = 0; // pure virtual
+		virtual float calc(const float &a, const double &b) = 0; // pure virtual
+        virtual int calc(const int &a, const int &b) = 0; // pure virtual
 		virtual int calc(const long &a, const int &b) = 0; // pure virtual
 		virtual int calc(const long &a, const long &b) = 0; // pure virtual
         virtual int calc(const int &a, const long &b) = 0; // pure virtual

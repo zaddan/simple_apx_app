@@ -79,6 +79,19 @@ size_t btm::get_vbl_bits(void) {
     return vbl;
 }
 
+float btm::calc(const double &a, const float &b) {
+   update_energy(vbl, "float", "double"); 
+   double b_out = b;
+   calc(a, b_out);
+}
+
+
+float btm::calc(const float &a, const double &b) {
+   update_energy(vbl, "float", "double"); 
+   double a_out = a;
+   calc(b, a_out);
+}
+
 int btm::calc(const long &a, const long &b) {
     update_energy(vbl, "long", "long"); 
     
