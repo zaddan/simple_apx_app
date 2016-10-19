@@ -79,14 +79,14 @@ size_t btm::get_vbl_bits(void) {
     return vbl;
 }
 
-float btm::calc(const double &a, const float &b) {
+double btm::calc(const double &a, const float &b) {
    update_energy(vbl, "float", "double"); 
    double b_out = b;
    calc(a, b_out);
 }
 
 
-float btm::calc(const float &a, const double &b) {
+double btm::calc(const float &a, const double &b) {
    update_energy(vbl, "float", "double"); 
    double a_out = a;
    calc(b, a_out);
@@ -222,7 +222,6 @@ float btm::calc(const int &number1, const float &number2) {
 
 
 float btm::calc(const float &number1, const float &number2) {
-    
     #ifdef BT_RND
        printf("ERRR: rounding not defined for float,float btm \n");
        exit(0);
@@ -318,12 +317,104 @@ float btm::calc(const float &number1, const float &number2) {
     */
 }
 
-float btm::calc(const double &number1, const double &number2) {
+double btm::calc(const double &number1, const double &number2) {
     update_energy(vbl, "double", "double");    
     cout<<"=============insde other half float"<<endl; 
-    float numOut = number1; 
-    float numOut2 = number2; 
-    calc(numOut, numOut2);
+    #ifdef BT_RND
+       printf("ERRR: rounding not defined for float,float btm \n");
+       exit(0);
+    #endif
+    
+    /*
+    FILE* fp;
+    fp = fopen("diff_file.txt", "ab+"); 
+    
+    if ( num1_inverse_converted*num2_inverse_converted != (number1*number2)){
+        float diff_part_1 =  num1_inverse_converted*num2_inverse_converted;
+        float diff_part_2 =  number1*number2;
+        float diff = (diff_part_1 - diff_part_2);
+        
+        //--checking for under/over-flow 
+        if (std::isinf(diff_part_1)) {
+            fprintf(fp, "par_1_overflow\n");
+        }
+        if (std::isinf(diff_part_2)) {
+            fprintf(fp, "par_2_overflow\n");
+        }
+        if ((diff_part_1 != diff_part_2) && (diff ==0)){
+            fprintf(fp, "diff underflow\n");
+        }
+        fprintf(fp, "error   ");
+        if ( diff > 1){
+            fprintf(fp, "acc:%f apx: %f diff:%f\n",num1_inverse_converted*num2_inverse_converted ,number1*number2, diff); 
+        }
+        fprintf(fp, "------\n");
+    }
+    
+    fclose(fp);
+    */ 
+    
+    /*     
+    int *num1_ptr = (int *)malloc(sizeof(int));
+    memcpy(num1_ptr, &number1, sizeof(num1_ptr));
+    int num1_mantisa =  *num1_ptr & ~(0xff800000);
+    num1_mantisa = (num1_mantisa >> vbl) <<vbl;
+    *num1_ptr &= (0xff800000);
+    *num1_ptr |= num1_mantisa;
+    
+    int *num2_ptr = (int *)malloc(sizeof(int));
+    memcpy(num2_ptr, &number2, sizeof(num2_ptr));
+    int num2_mantisa =  *num2_ptr & ~(0xff800000);
+    num2_mantisa = (num2_mantisa >> vbl) <<vbl;
+    *num2_ptr &= (0xff800000);
+    *num2_ptr |= num2_mantisa;
+    */
+
+    update_energy(vbl, "double", "double"); 
+    long num1_ptr;
+    memcpy(&num1_ptr, &number1, sizeof(num1_ptr));
+    long num1_mantisa =  num1_ptr & ~(0xfff0000000000000);
+    num1_mantisa = (num1_mantisa >> vbl) <<vbl;
+    num1_ptr &= 0xfff0000000000000;
+    num1_ptr |= num1_mantisa;
+    
+    long num2_ptr; 
+    memcpy(&num2_ptr, &number2, sizeof(num2_ptr));
+    long num2_mantisa =  num2_ptr & ~(0xfff0000000000000);
+    num2_mantisa = (num2_mantisa >> vbl) <<vbl;
+    num2_ptr &= 0xfff0000000000000;
+    num2_ptr |= num2_mantisa;
+
+    
+    double num2_restored, num1_restored; 
+    memcpy(&num1_restored, &num1_ptr, sizeof(num1_restored));
+    memcpy(&num2_restored, &num2_ptr, sizeof(num2_restored));
+    return num1_restored * num2_restored;
+   /* 
+    fpType num1;
+    fpType num2;
+    getFPComponents(number1, num1); //get the fp componenets
+    getFPComponents(number2, num2); //get the fp components
+
+    num1.Mantisa = ((num1.Mantisa)>> vbl) <<vbl;
+    num2.Mantisa = ((num2.Mantisa)>> vbl) <<vbl;
+    
+    float num1_inverse_converted = convertFPCompToFP(num1);
+    float num2_inverse_converted = convertFPCompToFP(num2);
+    
+    if (num1_inverse_converted != num1_restored){
+        cout<<"main: " <<number1<<"inverse: "<<num1_inverse_converted<< " num1_ptr: "<< num1_ptr << "restored :"<<num1_restored<<endl;
+        exit(0); 
+    }
+    if (num2_inverse_converted != num2_restored){
+        cout<<"inverse: "<<num2_inverse_converted<< " num2_ptr: "<<num2_restored<<endl;
+        exit(0); 
+    }
+    return num1_inverse_converted * num2_inverse_converted;
+    */
+
+
+
 }
 
 

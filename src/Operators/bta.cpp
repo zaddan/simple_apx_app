@@ -54,14 +54,14 @@ size_t bta::get_ianum_bits(void) {
 }
 
 
-float bta::calc(const double &a, const float &b) {
+double bta::calc(const double &a, const float &b) {
    update_energy(Nia, "float", "double"); 
    double b_out = b;
    calc(a, b_out);
 }
 
 
-float bta::calc(const float &a, const double &b) {
+double bta::calc(const float &a, const double &b) {
    update_energy(Nia, "float", "double"); 
    double a_out = a;
    calc(b, a_out);
@@ -260,12 +260,85 @@ float bta::calc(const float &number1, const float &number2) {
      */
 }
 
-float bta::calc(const double &number1, const double &number2) {
+double bta::calc(const double &number1, const double &number2) {
     update_energy(Nia, "double", "double"); 
-    cout<<"=============insde other half float"<<endl; 
-    float numOut = number1; 
-    float numOut2 = number2; 
-    calc(numOut, numOut2);
+    /*
+    FILE* fp;
+    fp = fopen("diff_file.txt", "ab+");
+    
+    if ( num1_inverse_converted+num2_inverse_converted != (number1+number2)){
+        float diff_part_1 =  num1_inverse_converted+num2_inverse_converted;
+        float diff_part_2 =  number1+number2;
+        float diff = (diff_part_1 - diff_part_2);
+        
+        //--checking for under/over-flow 
+        if (std::isinf(diff_part_1)) {
+            fprintf(fp, "par_1_overflow\n");
+        }
+        if (std::isinf(diff_part_2)) {
+            fprintf(fp, "par_2_overflow\n");
+        }
+        if ((diff_part_1 != diff_part_2) && (diff ==0)){
+            fprintf(fp, "diff underflow\n");
+        }
+
+        fprintf(fp, "error   ");
+        if ( diff > 1){
+            fprintf(fp, "acc:%f apx: %f diff:%f\n",num1_inverse_converted+num2_inverse_converted ,number1+number2, diff);
+        }
+        fprintf(fp, "------\n");
+    }
+    
+    fclose(fp);
+    */ 
+    
+    
+    /*
+    int *num1_ptr = (int *)malloc(sizeof(int));
+    memcpy(num1_ptr, &number1, sizeof(num1_ptr));
+    int num1_mantisa =  *num1_ptr & ~(0xff800000);
+    num1_mantisa = (num1_mantisa >> Nia) <<Nia;
+    *num1_ptr &= (0xff800000);
+    *num1_ptr |= num1_mantisa;
+    
+    int *num2_ptr = (int *)malloc(sizeof(int));
+    memcpy(num2_ptr, &number2, sizeof(num2_ptr));
+    int num2_mantisa =  *num2_ptr & ~(0xff800000);
+    num2_mantisa = (num2_mantisa >> Nia) <<Nia;
+    *num2_ptr &= (0xff800000);
+    *num2_ptr |= num2_mantisa;
+ */
+
+     
+    long num1_ptr ;
+    memcpy(&num1_ptr, &number1, sizeof(num1_ptr));
+    long num1_mantisa =  num1_ptr & ~(0xfff0000000000000);
+    num1_mantisa = (num1_mantisa >> Nia) <<Nia;
+    num1_ptr &= 0xfff0000000000000;
+    num1_ptr |= num1_mantisa;
+    
+    long num2_ptr;
+    memcpy(&num2_ptr, &number2, sizeof(num2_ptr));
+    long num2_mantisa =  num2_ptr & ~(0xfff0000000000000);
+    num2_mantisa = (num2_mantisa >> Nia) <<Nia;
+    num2_ptr &= 0xfff0000000000000;
+    num2_ptr |= num2_mantisa;
+    
+
+    double num2_restored, num1_restored; 
+    memcpy(&num1_restored, &num1_ptr, sizeof(num1_restored));
+    memcpy(&num2_restored, &num2_ptr, sizeof(num2_restored));
+    
+
+    #ifdef BT_RND
+       printf("ERRR: rounding not defined for float float bta \n");
+       exit(0);
+    #endif
+
+    return num2_restored + num1_restored;
+   
+
+
 }
 int bta::calc(const int &a, const int &b) {
     update_energy(Nia, "int", "int"); 
