@@ -145,14 +145,14 @@ int bta::calc(const int &a, const long &b) {
 
 float bta::calc(const float &number1, const int &number2) {
     #ifdef VERBOSE 
-    cout<<"=============insde half float"<<endl; 
+    //cout<<"=============insde half float"<<endl; 
     #endif 
     float numOut = number2; 
     calc(number1, numOut);
 } 
 
 float bta::calc(const int &number1, const float &number2) {
-    cout<<"=============insde other half float"<<endl; 
+    //cout<<"=============insde other half float"<<endl; 
     float numOut = number1; 
     calc(numOut, number2);
 } 
