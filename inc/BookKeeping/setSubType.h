@@ -1,1 +1,1 @@
-int setOpSubTypeAndInputs(hw_ac **myOp, vector<string> TypeInfo);
+int setOpSubTypeAndInputs(hw_ac **myOp, std::vector<string> TypeInfo);

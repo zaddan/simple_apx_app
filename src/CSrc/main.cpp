@@ -13,7 +13,7 @@ extern hw_ac **myOp;
 
 
 //copy past the following lines: start here
-int main(int argc, char* argv[]){
+int mainSIMPLE(int argc, char* argv[]){
     string resultFolderName; 
     string resultFileName; 
     string operatorFileName;
