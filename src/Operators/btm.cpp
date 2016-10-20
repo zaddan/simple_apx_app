@@ -319,6 +319,7 @@ float btm::calc(const float &number1, const float &number2) {
 
 double btm::calc(const double &number1, const double &number2) {
     update_energy(vbl, "double", "double");    
+    return number1*number2; 
     cout<<"=============insde other half float"<<endl; 
     #ifdef BT_RND
        printf("ERRR: rounding not defined for float,float btm \n");

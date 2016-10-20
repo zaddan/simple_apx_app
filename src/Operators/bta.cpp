@@ -262,6 +262,7 @@ float bta::calc(const float &number1, const float &number2) {
 
 double bta::calc(const double &number1, const double &number2) {
     update_energy(Nia, "double", "double"); 
+    return number1 + number2; 
     /*
     FILE* fp;
     fp = fopen("diff_file.txt", "ab+");
