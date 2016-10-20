@@ -1,3 +1,0 @@
-/home/ytobah/simple_apx_app/build/CMakeFiles/edit_cache.dir
-/home/ytobah/simple_apx_app/build/CMakeFiles/rebuild_cache.dir
-/home/ytobah/simple_apx_app/build/CMakeFiles/simple.dir

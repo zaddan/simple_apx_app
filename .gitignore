@@ -1,0 +1,7 @@
+src/CMakeCache.txt
+src/CMakeFiles/
+src/Makefile
+src/cmake_install.cmake
+build/
+CMakeLists.txt
+operator_sample.txt
